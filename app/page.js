@@ -1,7 +1,9 @@
+import { Main } from "next/document";
+
 export default function HomePage() {
   return (
-    <main className="">
-
-    </main>
+    <Main className="">
+      main
+    </Main>
   );
 }
