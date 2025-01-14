@@ -1,9 +1,11 @@
-import { Main } from "next/document";
+import Hero from "@/components/Hero";
+import Main from "@/components/Main";
+
 
 export default function HomePage() {
   return (
     <Main className="">
-      main
+      <Hero />
     </Main>
   );
 }

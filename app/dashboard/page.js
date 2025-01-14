@@ -1,4 +1,5 @@
-import { Main } from "next/document";
+import Main from "@/components/Main";
+
 
 export const metadata = {
     title: "Broodl · Dashboard"
