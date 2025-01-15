@@ -13,7 +13,7 @@ export default function Hero() {
             <Button text="Sign Up"/>
             <Button text="Sign Up" dark/>
         </div>
-        <Calendar/>
+        <Calendar demo/>
     </div>
   )
 }
