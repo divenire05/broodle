@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+import React, {useState} from 'react'
 import { gradients, baseRating } from '@/utils'
 
 const months = { 'January': 'Jan', 'February': 'Feb', 'March': 'Mar', 'April': 'Apr', 'May': 'May', 'June': 'Jun', 'July': 'Jul', 'August': 'Aug', 'September': 'Sept', 'October': 'Oct', 'November': 'Nov', 'December': 'Dec' }
@@ -11,7 +12,7 @@ const data = {
 }
 
 export default function Calendar(props) {
-    const {demo} = props
+    const {demo, data, handleSetMood} = props
     const year = 2024
     const month = 'July'
     const monthNow = new Date(year, Object.keys(months).indexOf(month), 1)
@@ -33,7 +34,7 @@ export default function Calendar(props) {
 
                         let isToday = dayIndex === now.getDate() //ERROR
 
-                        if (!dayDisplay) { // HOW DOES THIS WORK?
+                        if (!dayDisplay) {
                             return (
                                 <div className='bg-white' key={dayOfWeekIndex}></div>
                             )

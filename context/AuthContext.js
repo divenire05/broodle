@@ -13,7 +13,7 @@ export function useAuth() {
 
 export function AuthProvider({children}) {
     const [currentUser, setCurrentUser] = useState(null)
-    const [userDataObj, setUserDataObj] = useState({})
+    const [userDataObj, setUserDataObj] = useState(null)
     const [loading, setLoading] = useState(true)
 
     function signup(email, password) {
@@ -23,7 +23,7 @@ export function AuthProvider({children}) {
         return signInWithEmailAndPassword(auth, email, password)
     }
     function logout() {
-        setUserDataObj({})
+        setUserDataObj(null)
         setCurrentUser(null)
         return signOut(auth)
     }
@@ -33,7 +33,10 @@ export function AuthProvider({children}) {
             try {
                 setLoading(true)
                 setCurrentUser(user)
-                if (!user) {return}
+                if (!user) {
+                    console.log('No user found')
+                    return
+                }
 
                 console.log('Fetching User Data')
                 const docRef = doc(db, 'users', user.uid)
