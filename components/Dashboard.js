@@ -3,18 +3,45 @@ import { Fugaz_One } from 'next/font/google'
 import React, {useEffect, useState} from 'react'
 import Calendar from './Calendar'
 import { useAuth } from '@/context/AuthContext'
+import { doc, setDoc } from 'firebase/firestore'
+import { db } from '@/firebase'
 const fugaz = Fugaz_One({subsets: ['latin'], weight: ['400']})
 
 export default function Dashboard() {
-    const {currentUser, userDataObj} = useAuth()
+    const {currentUser, userDataObj, setUserDataObj} = useAuth()
     const [data, setData] = useState({})
 
     function countValues() {
 
     }
 
-    function handleSetMood(mood) {
+    async function handleSetMood(mood, day, month, year) {
+        try {
+            const newData = {...userDataObj}
+            if (!newData?.[year]) {
+                newData[year] = {}
+            }
+            if (!newData?.[year]?.[month]) {
+                newData[year][month]= {}
+            }
 
+            newData[year][month][day] = mood
+
+            setData(newData)
+
+            setUserDataObj(newData)
+
+            const docRef = doc(db, 'users', currentUser.uid)
+            const res = await setDoc(docRef, {
+                [year]: {
+                    [month]: {
+                        [day]: mood
+                    }
+                }
+            }, {merge: true})
+        } catch (err) {
+            console.log('Failed to set data: ', err.message)
+        }
     }
     
     const statuses = {
