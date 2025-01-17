@@ -15,7 +15,12 @@ export default function Dashboard() {
 
     }
 
-    async function handleSetMood(mood, day, month, year) {
+    async function handleSetMood(mood) {
+        const now = new Date()
+        const day = now.getDate()
+        const month = now.getMonth()
+        const year = now.getFullYear()
+
         try {
             const newData = {...userDataObj}
             if (!newData?.[year]) {
@@ -82,7 +87,10 @@ export default function Dashboard() {
         <div className='flex items-stretch flex-wrap gap-4'>
             {Object.keys(moods).map((mood, moodIndex) => {
                 return (
-                    <button className={'p-4 px-5 rounded-2xl purpleShadow duration-200 bg-indigo-50 hover:bg-indigo-100 flex flex-col items-center gap-2 flex-1'} key={moodIndex}>
+                    <button onClick={() => {
+                        const currentMoodValue = moodIndex + 1
+                        handleSetMood(currentMoodValue)
+                    }} className={'p-4 px-5 rounded-2xl purpleShadow duration-200 bg-indigo-50 hover:bg-indigo-100 flex flex-col items-center gap-2 flex-1'} key={moodIndex}>
                         <p className='text-4xl sm:text-5xl md:text-6xl'>{moods[mood]}</p>
                         <p className={'text-indigo-500 text-xs sm:text-sm md:text-base ' + fugaz.className}>{mood}</p>
                     </button>
